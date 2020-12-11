@@ -1,37 +1,35 @@
 package com.geekbrains.shop.entities;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "users")
-public class User {
-    private static final String SEQ_NAME = "users_seq";
+@Table(name = "carts")
+public class Cart {
+    private static final String SEQ_NAME = "carts_seq";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQ_NAME)
     @SequenceGenerator(name = SEQ_NAME, sequenceName = SEQ_NAME, allocationSize = 1)
     private Long id;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private Cart cart;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @ManyToMany
+    @JoinTable(name = "carts_products",
+            joinColumns = @JoinColumn(name = "cart_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> products;
 
-    private String username;
-    private String password;
-    private String email;
-    private String phone;
-    private boolean archive;
 
 }
