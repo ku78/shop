@@ -4,13 +4,14 @@ package com.geekbrains.shop.controller;
 import com.geekbrains.shop.entities.User;
 import com.geekbrains.shop.dto.UserDto;
 import com.geekbrains.shop.service.UserService;
-import com.geekbrains.shop.service.UserServiceImpl;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.security.Principal;
 import java.util.Objects;
 
@@ -35,6 +36,7 @@ public class UserController {
         return "user";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/new")
     public String saveUser(UserDto dto, Model model){
         if(userService.save(dto)){
@@ -45,7 +47,7 @@ public class UserController {
             return "user";
         }
     }
-
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/profile")
     public String profileUser(Model model, Principal principal){
         if(principal == null){
@@ -60,7 +62,7 @@ public class UserController {
         model.addAttribute("user", dto);
         return "profile";
     }
-
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/profile")
     public String updateProfileUser(UserDto dto, Model model, Principal principal){
         if(principal == null
