@@ -39,6 +39,9 @@ public class Orders {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> details;
 
+    @Enumerated(EnumType.STRING)
+    private OrdersStatus status;
+
     private BigDecimal sum;
     private String address;
 

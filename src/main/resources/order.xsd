@@ -1,0 +1,33 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://ku78.ti/geekbrains/api/order"
+           targetNamespace="http://ku78.ti/geekbrains/api/order"
+           elementFormDefault="qualified">
+
+    <xs:element name="getOrderRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getOrderResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="order" type="tns:order"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="order">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="created" type="xs:date"/>
+            <xs:element name="username" type="xs:string"/>
+            <xs:element name="sum" type="xs:double"/>
+            <xs:element name="amount" type="xs:long"/>
+            <xs:element name="status" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
+
