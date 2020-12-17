@@ -32,17 +32,17 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userRepository.findFirstByName(username);
         if (user == null) {throw new UsernameNotFoundException("User not found: " + username);}
-              
+
         List<GrantedAuthority> role = new ArrayList<>();
-       
+
         role.add(new SimpleGrantedAuthority(user.getRole().name()));
 
         return new org.springframework.security.core.userdetails.User(
                 user.getName(),
                 user.getPassword(),
-                roles); 
+                roles);
     }
-    
+
     @Override
     public boolean save(UserDto userDto) {
         if (!Objects.equals(userDto.getPassword(), userDto.getMatchingPassword())) {
