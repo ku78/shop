@@ -16,13 +16,5 @@ public class OrdersDetailsDto {
     private Product product;
     private Double price;
     private Double amount;
-    private Double sum;
 
-    public OrdersDetailsDto(Product product) {
-        this.product = product;
-        this.title = product.getTitle();
-        this.price = product.getPrice();
-        this.amount = 1.0;
-        this.sum = product.getPrice();
-    }
 }

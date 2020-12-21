@@ -14,7 +14,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
 @Endpoint
 public class OrdersEndpoint {
 
-    private static final String NAMESPACE_URL = "http://ku78.ti/geekbrains/api/orders";
+    private static final String NAMESPACE_URL = "http://com/geekbrains/shop/api/orders";
 
     private OrdersService ordersService;
 
@@ -25,10 +25,30 @@ public class OrdersEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URL, localPart = "getOrderRequest")
     @ResponsePayload
-    public GetOrdersResponse getOrder(@RequestPayload GetOrdersRequest request)
-            throws DatatypeConfigurationException {
-        GetOrdersResponse response = new GetOrdersResponse();
+    public GetOrderResponse getOrder(@RequestPayload GetOrderRequest request) throws DatatypeConfigurationException {
+        OrderDto orderDto = ordersService.getOrderDtoById(request.getId());
+        GetOrderResponse response = new GetOrderResponse();
+        OrderInfo orderInfo = new OrderInfo();
+        orderInfo.setAmount(orderDto.getAmount());
+        orderInfo.setCreated(getXmlGregorianCalendarFromLocalDate(orderDto.getCreated()));
+        orderInfo.setStatus(orderDto.getStatus().toString());
+        orderInfo.setUsername(orderDto.getUsername());
+        orderInfo.setId(orderDto.getId());
+        orderInfo.setSum(orderDto.getSum());
+        response.setOrder(orderInfo);
         return response;
     }
+
+    private XMLGregorianCalendar getXmlGregorianCalendarFromLocalDate(LocalDateTime localDateTime) throws DatatypeConfigurationException {
+        XMLGregorianCalendar xmlCal = DatatypeFactory.newInstance().newXMLGregorianCalendar();
+        xmlCal.setYear(localDateTime.getYear());
+        xmlCal.setMonth(localDateTime.getMonthValue());
+        xmlCal.setDay(localDateTime.getDayOfMonth());
+        xmlCal.setHour(localDateTime.getHour());
+        xmlCal.setMinute(localDateTime.getMinute());
+        xmlCal.setSecond(localDateTime.getSecond());
+        return xmlCal;
+    }
+
 
 }

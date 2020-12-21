@@ -1,4 +1,5 @@
 package com.geekbrains.shop.service;
+
 import com.geekbrains.shop.dao.UserRepository;
 import com.geekbrains.shop.entities.Role;
 import com.geekbrains.shop.entities.User;

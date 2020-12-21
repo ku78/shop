@@ -24,11 +24,7 @@ public class OrderDto {
     private OrdersStatus status;
     private List<OrdersDetailsDto> details = new ArrayList<>();
 
-    public void aggregate(){
+    public void aggregate() {
         this.amount = details.size();
-        this.sum = details.stream()
-                .map(OrdersDetailsDto::getSum)
-                .mapToDouble(Double::doubleValue)
-                .sum();
     }
 }

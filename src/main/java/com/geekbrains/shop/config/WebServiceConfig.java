@@ -28,7 +28,7 @@ public class WebServiceConfig {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("OrderPort");
         wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace("http://ku78.ti/geekbrains/api/orders");
+        wsdl11Definition.setTargetNamespace("http://com/geekbrains/shop/api/orders");
         wsdl11Definition.setSchema(xsdSchema);
         return wsdl11Definition;
     }
