@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <!--STOMP-->
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <!--app.js dependance: jquery-->
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/addProductToCart.js"></script>
+</head>
+<body>
+<div th:insert="~{fragments/menu :: #nav-menu}"></div>
+
+<h2>Your cart</h2>
+<h3 id="sum">All sum -> <b th:text="${cart.sum}"></b></h3>
+<h3 id="amount">Amount of products -> <b th:text="${cart.amountProducts}"></b></h3>
+
+<table border="1" align="center">
+    <tr>
+        <td>Title</td>
+        <td>Description</td>
+        <td>Price</td>
+        <div sec:authorize="isAuthenticated()">
+            <td></td>
+        </div>
+    </tr>
+    <tr th:each="product : ${products}">
+        <td th:text="${product.title}">Cheese</td>
+        <td th:text="${product.description}">Cheese</td>
+        <td th:text="${product.price}">12.0</td>
+        <div sec:authorize="isAuthenticated()">
+            <!--        <td ><a th:href="@{/products/{id}/cart(id=${product.id})}">Add to cart</a></td>-->
+            <td><a href="" class="class" th:id="${product.id}">Add to cart</a></td>
+        </div>
+    </tr>
+</table>
+
+</body>
+</html>
