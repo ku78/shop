@@ -1,0 +1,4 @@
+insert into users (id, name, password, email, phone, archive, role)
+values (1, 'admin', 'password', 'admin@mail.ru', '123-45-67', false, 'ADMIN');
+
+alter sequence users_seq restart with 2;
